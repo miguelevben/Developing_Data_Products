@@ -4,20 +4,23 @@ library(shiny)
 shinyUI(pageWithSidebar(
     
     # Application title
-    headerPanel("Air Quality Relationships & Predictions"),
+    headerPanel("Predicting New-York Air Quality Parameters."),
     
     sidebarPanel(
-        selectInput("outcome", "Outcome:", list("Ozone" = "Ozone", 
-                                                "Solar Radiation" = "Solar.R",
-                                                "Wind" = "Wind",
-                                                "Temperature" = "Temp")),
+        selectInput("outcome", "Select an Air-Quality parameter to Predict:", list("Ozone" = "Ozone", 
+                    "Solar Radiation" = "Solar.R", "Wind" = "Wind", "Temperature" = "Temp")),
         uiOutput("predictor"),
-        uiOutput("slider"),
-        h5(textOutput("guess"))
-    ),
+        uiOutput("slider") 
+     ),
     
     mainPanel(
-        plotOutput("ioPlot"),
-        textOutput("docs")
+    #Draw a tab panel to show User instructions and Predicted values        
+        tabsetPanel(type = "tabs",                     
+                    tabPanel("Instructions",p(textOutput("text1")), p(textOutput("text2")),p(textOutput("text3")),
+                             p(textOutput("text4")),p(textOutput("text5"))), 
+                    tabPanel("Predictions",h4(textOutput("guess")), plotOutput("ioPlot")))
+                    
+        
+        
     )
 ))
